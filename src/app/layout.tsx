@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import Loader from "@/components/Loader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Loader
+          onComplete={() => {}}
+          text="NextVibe"
+          duration={2500}
+          bgColor="bg-black"
+          textColor="text-green-400"
+          effect="wave"
+        />
         <Header />
         {children}
         <Footer />
