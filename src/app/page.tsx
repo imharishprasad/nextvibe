@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Introduce from "@/components/Introduce";
 import AboutMe from "@/components/AboutMe";
 import Timeline from "@/components/Timeline";
+import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
@@ -27,6 +28,9 @@ export default function HomePage() {
         </section>
         <section id="timeline">
           <Timeline />
+        </section>
+        <section id="projects">
+          <Projects />
         </section>
         <section id="contact">
           <Contact />
