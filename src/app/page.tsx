@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Introduce from "@/components/Introduce";
 import AboutMe from "@/components/AboutMe";
 import Timeline from "@/components/Timeline";
+import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
   title: "NextVibe",
@@ -18,7 +19,7 @@ export default function HomePage() {
   return (
     <>
       <main>
-      <section id="home">
+        <section id="home">
           <Introduce />
         </section>
         <section id="about">
@@ -26,6 +27,9 @@ export default function HomePage() {
         </section>
         <section id="timeline">
           <Timeline />
+        </section>
+        <section id="contact">
+          <Contact />
         </section>
       </main>
     </>
