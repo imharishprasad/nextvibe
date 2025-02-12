@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Introduce from "@/components/Introduce";
 
 export const metadata: Metadata = {
   title: "NextVibe",
@@ -15,7 +16,9 @@ export default function HomePage() {
   return (
     <>
       <main>
-       
+      <section id="home">
+          <Introduce />
+        </section>
       </main>
     </>
   );
