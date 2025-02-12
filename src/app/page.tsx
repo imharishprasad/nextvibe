@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Introduce from "@/components/Introduce";
+import AboutMe from "@/components/AboutMe";
 
 export const metadata: Metadata = {
   title: "NextVibe",
@@ -18,6 +19,9 @@ export default function HomePage() {
       <main>
       <section id="home">
           <Introduce />
+        </section>
+        <section id="about">
+          <AboutMe />
         </section>
       </main>
     </>
