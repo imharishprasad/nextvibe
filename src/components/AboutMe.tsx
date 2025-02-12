@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 export default function AboutMe() {
   return (
@@ -26,10 +27,11 @@ export default function AboutMe() {
           <div className="relative">
             <div className="relative w-48 h-48 md:w-56 md:h-56 flex items-center justify-center bg-gradient-to-r from-green-400 to-green-600 rounded-full p-1">
               <div className="w-full h-full rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
-                <img
+                <Image
                   src="/Images/AboutImage.png"
                   alt="Harish Prasad"
                   className="w-44 h-44 md:w-52 md:h-52 rounded-full object-cover"
+                  layout="responsive"
                 />
               </div>
             </div>
@@ -37,7 +39,7 @@ export default function AboutMe() {
 
           <div className="text-left text-gray-700 dark:text-gray-300">
             <p className="text-lg md:text-xl leading-relaxed">
-              I'm a passionate <span className="text-green-500 font-semibold">Software Engineer</span> specializing in crafting innovative digital experiences. My expertise spans across <span className="text-green-500 font-semibold">Full-Stack Development</span>, creating modern, scalable, and performance-driven applications.
+              I&apos;m a passionate <span className="text-green-500 font-semibold">Software Engineer</span> specializing in crafting innovative digital experiences. My expertise spans across <span className="text-green-500 font-semibold">Full-Stack Development</span>, creating modern, scalable, and performance-driven applications.
             </p>
 
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">

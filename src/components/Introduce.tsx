@@ -14,7 +14,7 @@ export default function Introduce() {
           Full-stack Developer crafting delightful experiences on the Internet
         </h2>
         <p className="text-lg md:text-xl text-gray-700 dark:text-gray-400 mt-4">
-          I'm a Software Engineer based out of Bengaluru, India 🇮🇳
+          I&apos;m a Software Engineer based out of Bengaluru, India 🇮🇳
         </p>
         <div className="mt-6 flex justify-center">
           <SocialMediaIcons />

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import {
-  FaArrowLeft,
-  FaArrowRight,
   FaGithub,
   FaExternalLinkAlt,
+  FaArrowLeft,
+  FaArrowRight,
 } from "react-icons/fa";
 
 const projects = [
@@ -22,8 +23,7 @@ const projects = [
   {
     id: 2,
     title: "Placeholder 1",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. At eum doloribus expedita deleniti asperiores ducimus?",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     image:
       "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?crop=faces&fit=crop&w=1950&q=80",
     github: "https://github.com/imharishprasad/nextvibe",
@@ -33,8 +33,7 @@ const projects = [
   {
     id: 3,
     title: "Placeholder 2",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. At eum doloribus expedita deleniti asperiores ducimus?",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     image:
       "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?crop=faces&fit=crop&w=1950&q=80",
     github: "https://github.com/imharishprasad/nextvibe",
@@ -42,6 +41,7 @@ const projects = [
     tech: ["C#", "WPF", ".NET"],
   },
 ];
+
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
@@ -55,24 +55,24 @@ export default function Projects() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) =>
+      prev < projects.length - visibleCards ? prev + 1 : 0
+    );
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) =>
+      prev > 0 ? prev - 1 : projects.length - visibleCards
+    );
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentIndex]);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) =>
-      prev < projects.length - visibleCards ? prev + 1 : 0
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) =>
-      prev > 0 ? prev - 1 : projects.length - visibleCards
-    );
-  };
+  }, [nextSlide]);
 
   return (
     <section
@@ -88,24 +88,24 @@ export default function Projects() {
       <div className="relative w-full max-w-5xl mx-auto overflow-hidden">
         <div
           className="flex transition-transform duration-700 ease-in-out"
-          style={{
-            transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
-          }}
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {projects.map((project) => (
-            <div key={project.id} className="min-w-full md:min-w-[50%] px-4">
+            <div key={project.id} className="w-full md:w-1/2 px-4">
               <div className="bg-gray-800 text-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105">
-                <img
+                <Image
                   src={project.image}
                   alt={project.title}
+                  width={500}
+                  height={300}
                   className="w-full h-48 object-cover"
+                  priority
                 />
                 <div className="p-6">
                   <h3 className="text-2xl font-bold text-green-400">
                     {project.title}
                   </h3>
                   <p className="text-gray-300 mt-2">{project.description}</p>
-
                   <div className="mt-4 flex flex-wrap gap-2">
                     {project.tech.map((tech, index) => (
                       <span
@@ -116,7 +116,6 @@ export default function Projects() {
                       </span>
                     ))}
                   </div>
-
                   <div className="flex justify-between mt-6">
                     <a
                       href={project.github}
@@ -142,7 +141,6 @@ export default function Projects() {
             </div>
           ))}
         </div>
-
         <button
           onClick={prevSlide}
           className="absolute left-0 top-1/2 transform -translate-y-1/2 p-3 bg-green-600/50 text-white rounded-full hover:bg-green-700 transition"

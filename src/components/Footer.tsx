@@ -51,7 +51,7 @@ export default function Footer() {
             Get in Touch
           </h3>
           <p className="mt-3 text-gray-700 dark:text-gray-400 leading-relaxed">
-            Let's collaborate! Feel free to reach out for new opportunities or
+            Let&apos;s collaborate! Feel free to reach out for new opportunities or
             just a tech talk.
           </p>
           <p className="mt-3 flex items-center space-x-3 text-gray-900 dark:text-gray-300">
