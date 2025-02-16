@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function AboutMe() {
   return (
     <section
-      id="about"
+      id="about-me"
       className="relative flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 px-6 py-16"
     >
       <div className="absolute inset-0 overflow-hidden">
