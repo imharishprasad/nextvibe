@@ -21,7 +21,7 @@
 
 ## 📖 Blog Feature   
 
-👉 **[Read the full guide here](BLOG.md)**  
+👉 **[Read the full guide here](README_BLOG.md)**  
 
 ---
 
