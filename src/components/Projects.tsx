@@ -100,14 +100,16 @@ export default function Projects() {
       <div className="relative w-full max-w-6xl mx-auto overflow-hidden px-4">
         <div
           className="flex transition-transform duration-700 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
+          style={{
+            transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
+          }}
         >
           {projects.map((project, index) => (
             <div
               key={project.id}
               className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2"
             >
-              <div className="bg-gray-800 text-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105">
+              <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -117,10 +119,10 @@ export default function Projects() {
                   priority
                 />
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold text-green-400">
+                  <h3 className="text-2xl font-bold text-green-600 dark:text-green-400">
                     {project.title}
                   </h3>
-                  <p className="text-gray-300 mt-2 text-sm">
+                  <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm">
                     {expanded === index || project.description.length <= 100
                       ? project.description
                       : `${project.description.substring(0, 100)}... `}
