@@ -3,18 +3,6 @@ import path from "path";
 import matter from "gray-matter";
 import { NextResponse } from "next/server";
 
-interface Blog {
-  id: number;
-  title: string;
-  description: string;
-  thumbnail: string;
-  content: string;
-  tags: string[];
-  author: string;
-  date: string;
-  slug: string;
-}
-
 const blogsDirectory = path.join(process.cwd(), "content/blogs");
 
 export async function GET() {
@@ -51,11 +39,19 @@ export async function GET() {
     });
 
     return NextResponse.json(blogs);
-  } catch (error : any) {
-    console.error("Error loading blogs:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+        console.error("Error loading blogs:", error.message);
+        return NextResponse.json(
+            { error: error.message },
+            { status: 500 }
+        );
+    }
+
+    console.error("Unknown error loading blogs:", error);
     return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
+        { error: "An unexpected error occurred" },
+        { status: 500 }
     );
-  }
+}
 }

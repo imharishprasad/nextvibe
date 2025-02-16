@@ -81,10 +81,12 @@ export default function BlogPage() {
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center py-10">
-            <img
+            <Image
               src="/images/no-blogs-available.webp"
-              alt="Error Loading"
-              className="w-48 h-48 mb-4"
+              alt="Error Loading."
+              width={192}
+              height={192}
+              className="mb-4"
             />
             <p className="text-lg font-semibold text-red-600 dark:text-red-400">
               {error}

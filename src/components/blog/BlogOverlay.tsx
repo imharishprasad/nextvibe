@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
+import { Blog } from "@/types/Types";
+
 
 export default function BlogOverlay({
   blog,
   onClose,
 }: {
-  blog: any;
+  blog: Blog;
   onClose: () => void;
 }) {
   return (

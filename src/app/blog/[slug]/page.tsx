@@ -12,9 +12,16 @@ import {
 } from "react-icons/fa";
 import CopyButton from "@/components/CopyButton";
 import LikeButton from "@/components/LikeButton";
+import Image from "next/image";
+import { Metadata } from "next";
+
+interface BlogDetailProps {
+  params: { slug: string };
+}
 
 async function getBlogData(slug: string) {
   const filePath = path.join(process.cwd(), "content/blogs", `${slug}.md`);
+
   if (!fs.existsSync(filePath)) {
     return null;
   }
@@ -35,6 +42,11 @@ async function getBlogData(slug: string) {
 
 async function getRelatedBlogs(currentSlug: string) {
   const blogsDir = path.join(process.cwd(), "content/blogs");
+
+  if (!fs.existsSync(blogsDir)) {
+    return [];
+  }
+
   const files = fs.readdirSync(blogsDir);
 
   const relatedBlogs = files
@@ -55,17 +67,42 @@ async function getRelatedBlogs(currentSlug: string) {
   return relatedBlogs.slice(0, 3);
 }
 
-export default async function BlogDetail({
+export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}) {
+}: BlogDetailProps): Promise<Metadata> {
   const blog = await getBlogData(params.slug);
-  const relatedBlogs = await getRelatedBlogs(params.slug);
 
+  if (!blog) {
+    return {
+      title: "Blog Not Found",
+      description: "This blog does not exist.",
+    };
+  }
+
+  return {
+    title: blog.title,
+    description: blog.description,
+    openGraph: {
+      title: blog.title,
+      description: blog.description,
+      url: `https://imharishprasad.com/blog/${params.slug}`,
+      type: "article",
+    },
+  };
+}
+
+// TODO: Add proper type later and enable no-explicit-any in linting config.
+export default async function BlogDetail({ params }: any) {
+  if (!params?.slug) {
+    return <h1 className="text-center text-2xl mt-10">Blog Not Found</h1>;
+  }
+
+  const blog = await getBlogData(params.slug);
   if (!blog) {
     return <h1 className="text-center text-2xl mt-10">Blog Not Found</h1>;
   }
+
+  const relatedBlogs = await getRelatedBlogs(params.slug);
 
   const shareUrl = encodeURIComponent(
     `https://imharishprasad.com/blog/${params.slug}`
@@ -136,7 +173,6 @@ export default async function BlogDetail({
             <LikeButton />
           </div>
         </div>
-
         <div className="max-w-6xl mx-auto px-6 py-12">
           {relatedBlogs.length > 0 && (
             <div className="mt-10">
@@ -151,9 +187,11 @@ export default async function BlogDetail({
                     className="block p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition transform hover:-translate-y-1 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     <div className="w-full h-40 overflow-hidden rounded-lg">
-                      <img
+                      <Image
                         src={related.thumbnail}
                         alt={related.title}
+                        width={320}
+                        height={160}
                         className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>

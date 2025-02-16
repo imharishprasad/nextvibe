@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface BlogCardProps {
   blog: {
@@ -21,9 +22,11 @@ export default function BlogCard({ blog }: BlogCardProps) {
       hover:bg-gray-200 dark:hover:bg-gray-800 group"
       >
         <div className="w-full md:w-[280px] flex-shrink-0">
-          <img
+          <Image
             src={blog.thumbnail}
             alt={blog.title}
+            width={280}
+            height={170}
             className="w-full h-[170px] object-cover rounded-lg group-hover:opacity-80 transition-opacity duration-300"
           />
         </div>
