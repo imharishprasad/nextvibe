@@ -13,9 +13,9 @@ const projects = [
   {
     id: 1,
     title: "Portfolio Website",
-    description: "A modern portfolio built with Next.js & Tailwind CSS.",
-    image:
-      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?crop=faces&fit=crop&w=1950&q=80",
+    description:
+      "A modern portfolio built with Next.js & Tailwind CSS. It features a fully responsive design, animations, and optimized performance.",
+    image: "/images/default-project-thumbnail.png",
     github: "https://github.com/imharishprasad/nextvibe",
     live: "https://",
     tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
@@ -23,9 +23,9 @@ const projects = [
   {
     id: 2,
     title: "Placeholder 1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    image:
-      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?crop=faces&fit=crop&w=1950&q=80",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non dui ac odio hendrerit convallis.",
+    image: "/images/default-project-thumbnail.png",
     github: "https://github.com/imharishprasad/nextvibe",
     live: "https://",
     tech: ["Python", "Tkinter"],
@@ -33,22 +33,34 @@ const projects = [
   {
     id: 3,
     title: "Placeholder 2",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    image:
-      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?crop=faces&fit=crop&w=1950&q=80",
-    github: "https://github.com/imharishprasad/nextvibe",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec eros eget velit tincidunt pretium.",
+    image: "/images/default-project-thumbnail.png",
     live: "https://",
     tech: ["C#", "WPF", ".NET"],
+  },
+  {
+    id: 4,
+    title: "Placeholder 3",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec eros eget velit tincidunt pretium.",
+    image: "/images/default-project-thumbnail.png",
+    github: "https://github.com/imharishprasad/nextvibe",
+    live: "https://",
+    tech: ["CPP", "CrowLib", "MVC"],
   },
 ];
 
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
+  const [expanded, setExpanded] = useState<number | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
-      setVisibleCards(window.innerWidth >= 768 ? 2 : 1);
+      if (window.innerWidth >= 1024) setVisibleCards(3);
+      else if (window.innerWidth >= 768) setVisibleCards(2);
+      else setVisibleCards(1);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -59,13 +71,13 @@ export default function Projects() {
     setCurrentIndex((prev) =>
       prev < projects.length - visibleCards ? prev + 1 : 0
     );
-  }, []);
+  }, [visibleCards]);
 
   const prevSlide = useCallback(() => {
     setCurrentIndex((prev) =>
       prev > 0 ? prev - 1 : projects.length - visibleCards
     );
-  }, []);
+  }, [visibleCards]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -85,13 +97,16 @@ export default function Projects() {
         </span>
       </h2>
 
-      <div className="relative w-full max-w-5xl mx-auto overflow-hidden">
+      <div className="relative w-full max-w-6xl mx-auto overflow-hidden px-4">
         <div
           className="flex transition-transform duration-700 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
         >
-          {projects.map((project) => (
-            <div key={project.id} className="w-full md:w-1/2 px-4">
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2"
+            >
               <div className="bg-gray-800 text-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105">
                 <Image
                   src={project.image}
@@ -105,7 +120,21 @@ export default function Projects() {
                   <h3 className="text-2xl font-bold text-green-400">
                     {project.title}
                   </h3>
-                  <p className="text-gray-300 mt-2">{project.description}</p>
+                  <p className="text-gray-300 mt-2 text-sm">
+                    {expanded === index || project.description.length <= 100
+                      ? project.description
+                      : `${project.description.substring(0, 100)}... `}
+                    {project.description.length > 100 && (
+                      <button
+                        className="text-green-400 hover:underline ml-1"
+                        onClick={() =>
+                          setExpanded(expanded === index ? null : index)
+                        }
+                      >
+                        {expanded === index ? "Read Less" : "Read More"}
+                      </button>
+                    )}
+                  </p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {project.tech.map((tech, index) => (
                       <span
@@ -141,6 +170,7 @@ export default function Projects() {
             </div>
           ))}
         </div>
+
         <button
           onClick={prevSlide}
           className="absolute left-0 top-1/2 transform -translate-y-1/2 p-3 bg-green-600/50 text-white rounded-full hover:bg-green-700 transition"
