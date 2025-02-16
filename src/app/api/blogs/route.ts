@@ -30,7 +30,7 @@ export async function GET() {
         id: filename.replace(".md", ""),
         title: data.title || "Untitled Blog",
         description: data.description || "",
-        thumbnail: data.thumbnail || "/images/default-thumbnail.webp",
+        thumbnail: data.thumbnail || "/images/default-blog-thumbnail.webp",
         tags: data.tags || [],
         author: data.author || "Unknown",
         date: data.date || "Unknown",

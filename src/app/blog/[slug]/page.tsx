@@ -35,7 +35,7 @@ async function getBlogData(slug: string) {
     author: data.author || "Unknown",
     date: data.date || new Date().toISOString(),
     tags: data.tags || [],
-    thumbnail: data.thumbnail || "/images/default-thumbnail.webp",
+    thumbnail: data.thumbnail || "/images/default-blog-thumbnail.webp",
     content,
   };
 }
@@ -60,7 +60,7 @@ async function getRelatedBlogs(currentSlug: string) {
         slug: file.replace(".md", ""),
         title: data.title || "Untitled",
         description: data.description || "",
-        thumbnail: data.thumbnail || "/images/default-thumbnail.webp",
+        thumbnail: data.thumbnail || "/images/default-blog-thumbnail.webp",
       };
     });
 
