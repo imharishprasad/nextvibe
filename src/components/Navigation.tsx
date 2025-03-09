@@ -78,7 +78,7 @@ export default function Navigation({
       </Link>
 
       <Link
-        href="https://www.youtube.com/@imharishprasad"
+        href="/youtube"
         target="_blank"
         className="text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 transition"
       >
