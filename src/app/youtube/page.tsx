@@ -37,7 +37,7 @@ export default function YouTube() {
     `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
 
   return (
-    <div className="min-h-screen px-6 py-14 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <div className="min-h-screen px-6 py-24 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
         <div className="relative w-full max-w-lg">
           <input
