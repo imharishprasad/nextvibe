@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: ["images.unsplash.com"], // allow images from external source.
+    domains: ["images.unsplash.com","img.youtube.com"], // allow images from external source.
   },
 };
 
