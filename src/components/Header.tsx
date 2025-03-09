@@ -35,49 +35,64 @@ export default function Header() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">
           <Navigation />
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-            aria-label="Toggle Theme"
-          >
-            {theme === "light" ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          <div className="relative group">
+            <button
+              onClick={toggleTheme}
+              className="p-3 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 
+              hover:ring-2 hover:ring-green-500 transition flex items-center justify-center w-12 h-12"
+              aria-label="Toggle Theme"
+            >
+              {theme === "light" ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-7 h-7"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M20.354 15.354A9 9 0 118.646 3.646a7 7 0 1011.708 11.708z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-7 h-7"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.364 5.364l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728l-.707-.707M6.343 17.657l-.707-.707M12 5a7 7 0 110 14 7 7 0 010-14z"
+                  />
+                </svg>
+              )}
+            </button>
+
+            <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div
+                className="px-3 py-1 rounded-md shadow-lg whitespace-nowrap text-sm
+              bg-gray-900 text-white dark:bg-white dark:text-gray-900 border border-gray-700 dark:border-gray-300"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M20.354 15.354A9 9 0 118.646 3.646a7 7 0 1011.708 11.708z"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.364 5.364l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728l-.707-.707M6.343 17.657l-.707-.707M12 5a7 7 0 110 14 7 7 0 010-14z"
-                />
-              </svg>
-            )}
-          </button>
+                {theme === "light"
+                  ? "Switch to Dark Mode"
+                  : "Switch to Light Mode"}
+              </div>
+              <div className="w-3 h-3 bg-gray-900 dark:bg-white border border-gray-700 dark:border-gray-300 rotate-45 mt-1 mx-auto"></div>
+            </div>
+          </div>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="lg:hidden p-3 rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+          className="lg:hidden p-3 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 
+          hover:ring-2 hover:ring-green-500 transition w-12 h-12 flex items-center justify-center"
           aria-label="Toggle Menu"
         >
           <svg
@@ -96,6 +111,8 @@ export default function Header() {
           </svg>
         </button>
       </div>
+
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -114,18 +131,36 @@ export default function Header() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="w-12 h-1 bg-gray-400 dark:bg-gray-600 rounded-full mx-auto mb-4"></div>
+
               <button
                 onClick={toggleMenu}
-                className="absolute top-3 right-3 p-2 rounded bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-600 transition"
+                className="absolute top-3 right-3 p-3 rounded-full bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 
+                hover:ring-2 hover:ring-green-500 transition w-10 h-10 flex items-center justify-center"
                 aria-label="Close Menu"
               >
-                ✖
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
               </button>
 
               <Navigation isMobile />
+
+              {/* Mobile Theme Toggle Button */}
               <button
                 onClick={toggleTheme}
-                className="mt-6 p-3 flex items-center justify-center space-x-3 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition w-full"
+                className="mt-6 p-3 flex items-center justify-center space-x-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 
+                hover:ring-2 hover:ring-green-500 transition w-full"
               >
                 {theme === "light" ? (
                   <>
