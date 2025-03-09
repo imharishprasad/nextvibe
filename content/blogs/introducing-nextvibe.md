@@ -12,6 +12,8 @@ slug: "introducing-nextvibe"
 
 Welcome to **NextVibe**, my personal space on the web! 🎉 This is more than just a portfolio—it's a hub where I showcase my work, share insights, and document my journey as a **developer** and **tech enthusiast**.  
 
+## Table of Contents
+
 ## ✨ Why NextVibe?  
 I wanted a sleek, modern, and **next-level** portfolio that reflects my passion for design and development. So, I built **NextVibe** using **Next.js**, **Tailwind CSS**, and a few powerful animations to make it stand out.  
 

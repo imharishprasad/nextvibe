@@ -4,6 +4,8 @@ import matter from "gray-matter";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkToc from "remark-toc";
+import { remark } from "remark";
+import rehypeSlug from "rehype-slug";
 import {
   FaFacebook,
   FaTwitter,
@@ -108,6 +110,33 @@ export default async function BlogDetail({ params }: any) {
     `https://imharishprasad.com/blog/${params.slug}`
   );
 
+  const extractToc = (content: string): string => {
+    const processed = remark().use(remarkToc).processSync(content).toString();
+
+    const tocStart = processed.indexOf("## Table of Contents");
+    if (tocStart === -1) return "";
+
+    const tocEnd = processed.indexOf("## ", tocStart + 1);
+    let toc =
+      tocEnd !== -1
+        ? processed.substring(tocStart, tocEnd)
+        : processed.substring(tocStart);
+
+    toc = toc.replace("## Table of Contents", "").trim();
+
+    return toc;
+  };
+
+  const removeTocFromContent = (content: string): string => {
+    const tocStart = content.indexOf("## Table of Contents");
+    if (tocStart === -1) return content;
+
+    const tocEnd = content.indexOf("## ", tocStart + 1);
+    return tocEnd !== -1
+      ? content.substring(0, tocStart) + content.substring(tocEnd)
+      : content.substring(0, tocStart);
+  };
+
   return (
     <>
       <div className="bg-gray-100 dark:bg-gray-950 min-h-screen">
@@ -151,28 +180,29 @@ export default async function BlogDetail({ params }: any) {
             <CopyButton url={shareUrl} />
           </div>
 
-          <div className="mt-6 p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-            <h2 className="text-xl font-semibold text-green-500">
-              Table of Contents
-            </h2>
-            <Markdown
-              className="prose dark:prose-invert"
-              remarkPlugins={[remarkToc]}
-            >
-              {blog.content}
-            </Markdown>
-          </div>
+          <div className="blog-content">
+            <div className="mt-6 p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
+              <h2 className="text-xl font-semibold text-green-500">
+                Table of Contents
+              </h2>
+              <Markdown className="prose dark:prose-invert">
+                {extractToc(blog.content)}
+              </Markdown>
+            </div>
 
-          <div className="mt-6">
-            <Markdown
-              className="prose dark:prose-invert text-gray-900 dark:text-gray-100"
-              remarkPlugins={[remarkGfm]}
-            >
-              {blog.content}
-            </Markdown>
-            <LikeButton />
+            <div className="mt-6">
+              <Markdown
+                className="prose dark:prose-invert text-gray-900 dark:text-gray-100"
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeSlug]}
+              >
+                {removeTocFromContent(blog.content)}
+              </Markdown>
+              <LikeButton />
+            </div>
           </div>
         </div>
+
         <div className="max-w-6xl mx-auto px-6 py-12">
           {relatedBlogs.length > 0 && (
             <div className="mt-10">
