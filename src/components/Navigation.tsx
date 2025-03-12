@@ -96,7 +96,6 @@ export default function Navigation({
 
       <Link
         href="/youtube"
-        target="_blank"
         className="text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 transition"
       >
         YouTube
