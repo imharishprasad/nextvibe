@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaChevronDown } from "react-icons/fa";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navigation({
   isMobile = false,
@@ -10,6 +11,8 @@ export default function Navigation({
   isMobile?: boolean;
 }) {
   const [isShowcaseOpen, setIsShowcaseOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (!isMobile) return;
@@ -21,6 +24,18 @@ export default function Navigation({
     document.addEventListener("click", handleOutsideClick);
     return () => document.removeEventListener("click", handleOutsideClick);
   }, [isMobile]);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, [pathname]); 
 
   return (
     <nav
@@ -55,6 +70,8 @@ export default function Navigation({
             <Link
               key={item}
               href={`#${item.toLowerCase().replace(" ", "-")}`}
+              as={`/#${item.toLowerCase().replace(" ", "-")}`}
+              scroll={true}
               className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
             >
               {item}
