@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import Loader from "@/components/Loader";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,11 @@ export default function RootLayout({
   const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
-    const navigationEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
-    const isPageReload = navigationEntries.length > 0 && navigationEntries[0].type === "reload";
+    const navigationEntries = performance.getEntriesByType(
+      "navigation"
+    ) as PerformanceNavigationTiming[];
+    const isPageReload =
+      navigationEntries.length > 0 && navigationEntries[0].type === "reload";
 
     if (pathname === "/" && isPageReload) {
       setShowLoader(true);
@@ -41,6 +45,58 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <title>NextVibe - Harish Prasad</title>
+        <meta
+          name="description"
+          content="NextVibe - Portfolio of Harish Prasad, a Software Developer specializing in modern web development."
+        />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="NextVibe - Harish Prasad" />
+        <meta
+          property="og:description"
+          content="NextVibe - Portfolio of Harish Prasad, showcasing projects, blogs, and YouTube content."
+        />
+        <meta property="og:url" content="https://www.imharishprasad.com" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="NextVibe - Harish Prasad" />
+        <meta
+          name="twitter:description"
+          content="NextVibe - Portfolio of Harish Prasad, a Software Developer."
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="keywords"
+          content="Harish Prasad, NextVibe, Software Developer, Portfolio, imharishprasad, Web Development, Full Stack Developer, Tech, Unity"
+        />
+
+       {/* SEO Schema Markup */}
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Harish Prasad",
+              url: "https://www.imharishprasad.com",
+              sameAs: [
+                "https://www.instagram.com/imharishprasad",
+                "https://www.facebook.com/imharishprasad",
+                "https://t.me/imharishprasad",
+                "https://www.youtube.com/@imharishprasad",
+                "https://www.imharishprasad.com",
+              ],
+              jobTitle: "Software Developer",
+              worksFor: {
+                "@type": "Light & Wonder",
+                name: "NextVibe",
+              },
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
