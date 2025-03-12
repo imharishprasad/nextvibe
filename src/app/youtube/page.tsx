@@ -39,13 +39,13 @@ export default function YouTube() {
   return (
     <div className="min-h-screen px-6 py-24 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
-        <div className="relative w-full max-w-lg">
+      <div className="relative w-full max-w-lg">
           <input
             type="text"
             placeholder="Search videos..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 py-2 text-gray-900 bg-white dark:bg-gray-800 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full px-4 py-2 text-gray-900 dark:text-white bg-white dark:bg-gray-800 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           <FaSearch className="absolute right-3 top-3 text-gray-500 dark:text-gray-300" />
         </div>
