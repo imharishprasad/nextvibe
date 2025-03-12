@@ -2,12 +2,12 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import "../styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import Loader from "@/components/Loader";
-import { useState, useEffect } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,13 +25,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [showContent, setShowContent] = useState(pathname !== "/");
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
-    if (pathname === "/") {
-      setShowContent(false);
+    const navigationEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
+    const isPageReload = navigationEntries.length > 0 && navigationEntries[0].type === "reload";
+
+    if (pathname === "/" && isPageReload) {
+      setShowLoader(true);
+      setTimeout(() => setShowLoader(false), 2500);
     } else {
-      setShowContent(true);
+      setShowLoader(false);
     }
   }, [pathname]);
 
@@ -40,14 +44,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {pathname === "/" && !showContent ? (
+        {showLoader ? (
           <Loader
-            onComplete={() => setShowContent(true)}
+            onComplete={() => setShowLoader(false)}
             text="NextVibe"
-            duration={2500}
+            duration={1500}
             bgColor="bg-black"
             textColor="text-green-400"
-            effect="wave"
+            effect="bubble"
           />
         ) : (
           <>
