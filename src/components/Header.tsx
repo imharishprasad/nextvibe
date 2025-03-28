@@ -6,7 +6,7 @@ import Navigation from "./Navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
