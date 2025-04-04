@@ -139,7 +139,7 @@ export default async function BlogDetail({ params }: any) {
 
   return (
     <>
-      <div className="bg-gray-100 dark:bg-gray-950 min-h-screen">
+      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
         <div className="max-w-4xl mx-auto px-6 py-8 mt-4 md:mt-20 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg shadow-lg">
           <h1 className="text-2xl md:text-3xl font-bold">{blog.title}</h1>
           <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">
