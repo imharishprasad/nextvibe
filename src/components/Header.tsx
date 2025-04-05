@@ -28,8 +28,21 @@ export default function Header() {
   return (
     <header className="w-full bg-white dark:bg-gray-900 shadow-md fixed top-0 left-0 right-0 z-50">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 py-4">
-        <h1 className="text-2xl font-extrabold bg-gradient-to-r from-green-500 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
-          <Link href="/">NextVibe</Link>
+        <h1 className="text-base md:text-xl font-bold tracking-tight font-mono">
+          <Link href="/" className="group inline-flex items-center gap-1">
+            <span className="text-slate-500 dark:text-slate-400 group-hover:text-green-400 transition-colors duration-200">
+              &lt;
+            </span>
+
+            <span className="relative overflow-hidden whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-teal-400 to-cyan-400 animate-typing-cursor">
+              imharishprasad
+              <span className="absolute right-0 top-0 h-full w-[1px] bg-cyan-400 animate-pulse" />
+            </span>
+
+            <span className="text-slate-500 dark:text-slate-400 group-hover:text-cyan-400 transition-colors duration-200">
+              /&gt;
+            </span>
+          </Link>
         </h1>
 
         {/* Desktop Navigation */}

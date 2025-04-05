@@ -23,3 +23,19 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 14ch;
+  }
+}
+
+.animate-typing-cursor {
+  display: inline-block;
+  animation: typing 2.5s steps(14, end) forwards;
+  width: 0ch;
+  position: relative;
+}
